@@ -1,0 +1,57 @@
+plugins {
+    id 'idea'
+    id 'java'
+}
+
+ext {
+    CUCUMBER            = '6.4.0'
+    GUAVA               = '28.1-jre'
+    HAMCREST            = '2.1'
+    JACKSON             = '2.10.2'
+    SPRING_BOOT         = '2.0.6.RELEASE'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+dependencies {
+
+    compile "com.google.guava:guava:${GUAVA}"
+    compile "com.fasterxml.jackson.core:jackson-annotations:${JACKSON}"
+    compile "com.fasterxml.jackson.core:jackson-core:${JACKSON}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${JACKSON}"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:${JACKSON}"
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.1.2'
+    testCompile group: 'io.rest-assured', name: 'rest-assured-all', version: '4.1.2'
+    testCompile "org.hamcrest:hamcrest:${HAMCREST}"
+    testCompile "io.cucumber:cucumber-java:${CUCUMBER}"
+    testCompile "io.cucumber:cucumber-junit:${CUCUMBER}"
+    testCompile "io.cucumber:cucumber-spring:${CUCUMBER}"
+    testCompile "org.springframework.boot:spring-boot-starter-test:${SPRING_BOOT}"
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+task cucumberCli() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:target/cucumber-report.html',
+                    '--glue', 'io.gorest.glue.definitions',
+                    'src/test/resources/features']
+        }
+    }
+}

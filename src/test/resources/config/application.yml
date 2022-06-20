@@ -1,0 +1,3 @@
+cucumber:
+  baseUrl: https://gorest.co.in/public/v2
+  accessToken: 1f1aa164f5d7d72535a3a24b450993007cb3b1e1fad40b66ab1c5fe56ac55733
