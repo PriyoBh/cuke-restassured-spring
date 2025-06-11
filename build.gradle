@@ -1,14 +1,18 @@
 plugins {
     id 'idea'
     id 'java'
+    id 'java-library'
 }
 
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
 ext {
-    CUCUMBER            = '6.4.0'
-    GUAVA               = '28.1-jre'
-    HAMCREST            = '2.1'
-    JACKSON             = '2.10.2'
-    SPRING_BOOT         = '2.0.6.RELEASE'
+    CUCUMBER            = '7.15.0'
+    GUAVA               = '33.0.0-jre'
+    HAMCREST            = '2.2'
+    JACKSON             = '2.16.1'
+    SPRING_BOOT         = '3.2.2'
 }
 
 repositories {
@@ -23,22 +27,22 @@ configurations {
 
 dependencies {
 
-    compile "com.google.guava:guava:${GUAVA}"
-    compile "com.fasterxml.jackson.core:jackson-annotations:${JACKSON}"
-    compile "com.fasterxml.jackson.core:jackson-core:${JACKSON}"
-    compile "com.fasterxml.jackson.core:jackson-databind:${JACKSON}"
-    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:${JACKSON}"
-    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.1.2'
-    testCompile group: 'io.rest-assured', name: 'rest-assured-all', version: '4.1.2'
-    testCompile "org.hamcrest:hamcrest:${HAMCREST}"
-    testCompile "io.cucumber:cucumber-java:${CUCUMBER}"
-    testCompile "io.cucumber:cucumber-junit:${CUCUMBER}"
-    testCompile "io.cucumber:cucumber-spring:${CUCUMBER}"
-    testCompile "org.springframework.boot:spring-boot-starter-test:${SPRING_BOOT}"
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
-    testCompileOnly 'org.projectlombok:lombok:1.18.20'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    api "com.google.guava:guava:${GUAVA}"
+    api "com.fasterxml.jackson.core:jackson-annotations:${JACKSON}"
+    api "com.fasterxml.jackson.core:jackson-core:${JACKSON}"
+    api "com.fasterxml.jackson.core:jackson-databind:${JACKSON}"
+    api "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:${JACKSON}"
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured-all', version: '5.4.0'
+    testImplementation "org.hamcrest:hamcrest:${HAMCREST}"
+    testImplementation "io.cucumber:cucumber-java:${CUCUMBER}"
+    testImplementation "io.cucumber:cucumber-junit:${CUCUMBER}"
+    testImplementation "io.cucumber:cucumber-spring:${CUCUMBER}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${SPRING_BOOT}"
+    compileOnlyApi 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 task cucumberCli() {
